@@ -1,0 +1,10 @@
+CREATE TABLE shop
+(
+    id         BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name       VARCHAR(150) NOT NULL,
+    phone      VARCHAR(20),
+    address    TEXT,
+    upi_id     VARCHAR(100),
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

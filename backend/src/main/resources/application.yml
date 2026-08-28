@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: pet-shop
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/pet_shop
+    username: petshop_app
+    password: your_password
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
