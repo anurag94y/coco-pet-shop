@@ -44,5 +44,59 @@ public class DealerLedgerEntry {
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // getters/setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Shop getShop() {
+        return shop;
+    }
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+    public Dealer getDealer() {
+        return dealer;
+    }
+    public void setDealer(Dealer dealer) {
+        this.dealer = dealer;
+    }
+    public Purchase getPurchase() {
+        return purchase;
+    }
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
+    }
+    public String getTransactionType() {
+        return transactionType;
+    }
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
+    }
+    public BigDecimal getAmount() {
+        return amount;
+    }
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public AppUser getCreatedBy() {
+        return createdBy;
+    }
+    public void setCreatedBy(AppUser createdBy) {
+        this.createdBy = createdBy;
+    }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

@@ -30,5 +30,7 @@ public class Shop {
     @Column(name = "updated_at", nullable = false, insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
-    // getters/setters
+    public Long getId() {
+        return id;
+    }
 }

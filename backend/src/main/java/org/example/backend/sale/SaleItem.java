@@ -56,5 +56,59 @@ public class SaleItem {
     )
     private BigDecimal totalPrice;
 
-    // getters/setters
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Sale getSale() {
+        return sale;
+    }
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
+    public Product getProduct() {
+        return product;
+    }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    public InventoryBatch getInventoryBatch() {
+        return inventoryBatch;
+    }
+    public void setInventoryBatch(InventoryBatch inventoryBatch) {
+        this.inventoryBatch = inventoryBatch;
+    }
+    public Integer getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getMrp() {
+        return mrp;
+    }
+    public void setMrp(BigDecimal mrp) {
+        this.mrp = mrp;
+    }
+    public BigDecimal getDiscountPercentage() {
+        return discountPercentage;
+    }
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

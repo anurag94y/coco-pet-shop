@@ -1,18 +1,18 @@
 package org.example.backend.sale;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface SaleRepository extends JpaRepository<Sale, Long> {
 
-    List<Sale> findByCustomerIdOrderByBillDateDesc(Long customerId);
-
-    List<Sale> findByShopIdOrderByBillDateDesc(Long shopId);
-
-    Optional<Sale> findByShopIdAndBillNumber(
+    Page<Sale> findByShopIdOrderByBillDateDesc(
             Long shopId,
-            String billNumber
+            Pageable pageable
+    );
+
+    Page<Sale> findByCustomerIdOrderByBillDateDesc(
+            Long customerId,
+            Pageable pageable
     );
 }

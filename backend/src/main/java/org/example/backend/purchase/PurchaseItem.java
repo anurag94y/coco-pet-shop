@@ -43,5 +43,46 @@ public class PurchaseItem {
     )
     private BigDecimal purchasePrice;
 
-    // getters/setters
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Purchase getPurchase() {
+        return purchase;
+    }
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
+    }
+    public Product getProduct() {
+        return product;
+    }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    public Integer getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+    public BigDecimal getMrp() {
+        return mrp;
+    }
+    public void setMrp(BigDecimal mrp) {
+        this.mrp = mrp;
+    }
+    public BigDecimal getDealerDiscountPercentage() {
+        return dealerDiscountPercentage;
+    }
+    public void setDealerDiscountPercentage(BigDecimal dealerDiscountPercentage) {
+        this.dealerDiscountPercentage = dealerDiscountPercentage;
+    }
+    public BigDecimal getPurchasePrice() {
+        return purchasePrice;
+    }
+    public void setPurchasePrice(BigDecimal purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
 }
