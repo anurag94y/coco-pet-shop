@@ -1,6 +1,7 @@
 package org.example.backend.inventory;
 
 import org.example.backend.common.exception.ResourceNotFoundException;
+import org.example.backend.inventory.dto.ExpiredInventoryResponse;
 import org.example.backend.inventory.dto.InventoryBatchResponse;
 import org.example.backend.inventory.dto.InventorySummaryResponse;
 import org.example.backend.inventory.dto.ProductInventoryResponse;

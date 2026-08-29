@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class SaleService {
     private final InventoryBatchRepository inventoryBatchRepository;
     private final InventoryTransactionRepository inventoryTransactionRepository;
 
+    private final SaleBillPdfService saleBillPdfService;
+
     public SaleService(
             SaleRepository saleRepository,
             SaleItemRepository saleItemRepository,
@@ -48,7 +51,8 @@ public class SaleService {
             ProductRepository productRepository,
             AppUserRepository appUserRepository,
             InventoryBatchRepository inventoryBatchRepository,
-            InventoryTransactionRepository inventoryTransactionRepository
+            InventoryTransactionRepository inventoryTransactionRepository,
+            SaleBillPdfService saleBillPdfService
     ) {
         this.saleRepository = saleRepository;
         this.saleItemRepository = saleItemRepository;
@@ -60,6 +64,7 @@ public class SaleService {
         this.inventoryBatchRepository = inventoryBatchRepository;
         this.inventoryTransactionRepository =
                 inventoryTransactionRepository;
+        this.saleBillPdfService = saleBillPdfService;
     }
 
     @Transactional
@@ -234,6 +239,37 @@ public class SaleService {
                 .map(this::toSummaryResponse);
     }
 
+    @Transactional(readOnly = true)
+    public byte[] generateBillPdf(Long saleId) {
+
+        Sale sale = saleRepository.findById(saleId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Sale not found: " + saleId
+                        )
+                );
+
+        Payment payment =
+                paymentRepository
+                        .findBySaleIdOrderByCreatedAtDesc(saleId)
+                        .stream()
+                        .findFirst()
+                        .orElseThrow(() ->
+                                new IllegalStateException(
+                                        "Payment not found for sale: "
+                                                + saleId
+                                )
+                        );
+
+        SaleResponse saleResponse =
+                toResponse(sale, payment);
+
+        return saleBillPdfService.generateBill(
+                saleResponse,
+                sale.getShop()
+        );
+    }
+
     private record AllocationResult(
             BigDecimal subtotal,
             BigDecimal total
@@ -288,11 +324,11 @@ public class SaleService {
     ) {
 
         List<InventoryBatch> batches =
-                inventoryBatchRepository
-                        .findAvailableBatchesForSale(
-                                shop.getId(),
-                                product.getId()
-                        );
+                inventoryBatchRepository.findAvailableBatchesForSale(
+                        shop.getId(),
+                        product.getId(),
+                        LocalDate.now()
+                );
 
         int availableQuantity =
                 batches.stream()

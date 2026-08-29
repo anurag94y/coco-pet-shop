@@ -6,7 +6,10 @@ import org.example.backend.sale.dto.SaleResponse;
 import org.example.backend.sale.dto.SaleSummaryResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,5 +59,31 @@ public class SaleController {
                 shopId,
                 pageable
         );
+    }
+
+    @GetMapping(
+            value = "/{saleId}/bill",
+            produces = "application/pdf"
+    )
+    public ResponseEntity<byte[]> generateBill(
+            @PathVariable Long saleId
+    ) {
+
+        byte[] pdf =
+                saleService.generateBillPdf(
+                        saleId
+                );
+
+        return ResponseEntity.ok()
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "inline; filename=\"bill-"
+                                + saleId
+                                + ".pdf\""
+                )
+                .contentType(
+                        MediaType.APPLICATION_PDF
+                )
+                .body(pdf);
     }
 }
