@@ -90,8 +90,9 @@ public class DealerBillTextParser {
                 dealerName,
                 invoiceNumber,
                 billDate,
+                null,
                 items,
-                text
+                false
         );
     }
 
@@ -336,5 +337,5 @@ public class DealerBillTextParser {
             );
         }
     }
-    
+
 }

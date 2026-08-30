@@ -9,16 +9,10 @@ import java.time.LocalDate;
 
 public record ConfirmDealerBillItemRequest(
         Long productId,
-
         @NotBlank String productName,
-
         @NotNull @Positive Integer quantity,
-
         @NotNull @Positive BigDecimal mrp,
-
         @NotNull BigDecimal dealerDiscountPercentage,
-
         @NotNull @Positive BigDecimal purchasePrice,
-
         LocalDate expiryDate
 ) {}
