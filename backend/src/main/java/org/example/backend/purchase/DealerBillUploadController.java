@@ -3,6 +3,7 @@ package org.example.backend.purchase;
 import org.example.backend.dealer.DealerPaymentService;
 import org.example.backend.purchase.dto.DealerBillOcrResponse;
 import org.example.backend.purchase.dto.DealerBillParseResponse;
+import org.example.backend.purchase.dto.DealerBillReviewResponse;
 import org.example.backend.purchase.dto.DealerBillUploadResponse;
 import org.example.backend.purchase.extractor.DealerBillExtractionService;
 import org.springframework.http.HttpStatus;
@@ -38,13 +39,6 @@ public class DealerBillUploadController {
     ) {
         return storageService.store(file);
     }
-
-//    @PostMapping("/bill-parse")
-//    public DealerBillOcrResponse parseBill(
-//            @RequestParam String storedPath
-//    ) {
-//        return dealerBillParserService.parse(storedPath);
-//    }
 
     @PostMapping("/bill-parse")
     public DealerBillParseResponse parseBill(

@@ -2,6 +2,7 @@ package org.example.backend.product;
 
 import org.example.backend.common.exception.ResourceNotFoundException;
 import org.example.backend.product.dto.CreateProductRequest;
+import org.example.backend.product.dto.ProductMatchResponse;
 import org.example.backend.product.dto.ProductResponse;
 import org.example.backend.shop.Shop;
 import org.example.backend.shop.ShopRepository;
@@ -64,6 +65,30 @@ public class ProductService {
         return productRepository.findByShopId(shopId)
                 .stream()
                 .map(this::toResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductMatchResponse> searchProducts(
+            Long shopId,
+            String name
+    ) {
+        if (name == null || name.isBlank()) {
+            return List.of();
+        }
+
+        return productRepository
+                .findTop10ByShopIdAndNameContainingIgnoreCase(
+                        shopId,
+                        name.trim()
+                )
+                .stream()
+                .map(product ->
+                        new ProductMatchResponse(
+                                product.getId(),
+                                product.getName()
+                        )
+                )
                 .toList();
     }
 

@@ -9,7 +9,8 @@ import java.util.List;
 
 public record ConfirmDealerBillImportRequest(
         @NotNull Long shopId,
-        @NotNull Long dealerId,
+        Long dealerId,
+        String dealerName,
         @NotNull Long createdBy,
         String billNumber,
         @NotNull LocalDate billDate,

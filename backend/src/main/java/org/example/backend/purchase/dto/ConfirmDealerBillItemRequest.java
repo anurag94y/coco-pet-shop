@@ -14,5 +14,7 @@ public record ConfirmDealerBillItemRequest(
         @NotNull @Positive BigDecimal mrp,
         @NotNull BigDecimal dealerDiscountPercentage,
         @NotNull @Positive BigDecimal purchasePrice,
+        @NotNull
+        BigDecimal sellingDiscountPercentage,
         LocalDate expiryDate
 ) {}

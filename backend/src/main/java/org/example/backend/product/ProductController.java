@@ -2,6 +2,7 @@ package org.example.backend.product;
 
 import jakarta.validation.Valid;
 import org.example.backend.product.dto.CreateProductRequest;
+import org.example.backend.product.dto.ProductMatchResponse;
 import org.example.backend.product.dto.ProductResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +39,16 @@ public class ProductController {
             @PathVariable Long shopId
     ) {
         return productService.getProducts(shopId);
+    }
+
+    @GetMapping("/api/shops/{shopId}/products/search")
+    public List<ProductMatchResponse> searchProducts(
+            @PathVariable Long shopId,
+            @RequestParam String name
+    ) {
+        return productService.searchProducts(
+                shopId,
+                name
+        );
     }
 }

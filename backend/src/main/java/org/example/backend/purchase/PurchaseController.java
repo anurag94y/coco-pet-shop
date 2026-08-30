@@ -1,9 +1,8 @@
 package org.example.backend.purchase;
 
 import jakarta.validation.Valid;
-import org.example.backend.purchase.dto.ConfirmDealerBillImportRequest;
-import org.example.backend.purchase.dto.CreatePurchaseRequest;
-import org.example.backend.purchase.dto.PurchaseResponse;
+import org.example.backend.purchase.dto.*;
+import org.example.backend.purchase.extractor.DealerBillExtractionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +14,17 @@ public class PurchaseController {
 
     private final PurchaseService purchaseService;
     private final DealerBillImportService dealerBillImportService;
+    private final DealerBillExtractionService dealerBillExtractionService;
+    private final DealerBillReviewService dealerBillReviewService;
 
     public PurchaseController(PurchaseService purchaseService,
-                              DealerBillImportService dealerBillImportService) {
+                              DealerBillImportService dealerBillImportService,
+                              DealerBillExtractionService dealerBillExtractionService,
+                              DealerBillReviewService dealerBillReviewService) {
         this.purchaseService = purchaseService;
         this.dealerBillImportService = dealerBillImportService;
+        this.dealerBillExtractionService = dealerBillExtractionService;
+        this.dealerBillReviewService = dealerBillReviewService;
     }
 
     @PostMapping
@@ -57,5 +62,22 @@ public class PurchaseController {
             @Valid @RequestBody ConfirmDealerBillImportRequest request
     ) {
         return dealerBillImportService.importBill(request);
+    }
+
+    @PostMapping("/bill-review")
+    public DealerBillReviewResponse reviewBill(
+            @RequestParam Long shopId,
+            @RequestParam String storedPath
+    ) {
+
+        DealerBillParseResponse extraction =
+                dealerBillExtractionService
+                        .extract(storedPath);
+
+        return dealerBillReviewService
+                .buildReview(
+                        shopId,
+                        extraction
+                );
     }
 }
